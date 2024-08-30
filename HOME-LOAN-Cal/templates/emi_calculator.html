@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Loan EMI Calculator</title>
+    <style>
+        body {
+            background-color: rgb(174, 191, 62);
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 400px;
+        }
+        input, select, button {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        h1 {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Home Loan EMI Calculator</h1>
+        <form method="POST">
+            <label for="loan_amount">Loan Amount (₹):</label>
+            <input type="number" id="loan_amount" name="loan_amount" step="100000" value="{{ loan_amount }}" required>
+
+            <label for="tenure_years">Tenure (Years):</label>
+            <input type="number" id="tenure_years" name="tenure_years" min="1" max="30" value="{{ tenure_years }}" required>
+
+            <label for="interest_rate">Interest Rate (% P.A.):</label>
+            <input type="number" id="interest_rate" name="interest_rate" step="0.1" value="{{ interest_rate }}" required>
+
+            <button type="submit">Calculate</button>
+        </form>
+
+        {% if emi is not none %}
+            <h2>Calculation Results</h2>
+            <p><strong>Monthly EMI:</strong> ₹{{ emi|round(2) }}</p>
+            <p><strong>Total Amount Payable:</strong> ₹{{ total_payment|round(2) }}</p>
+            <p><strong>Total Interest Amount:</strong> ₹{{ total_interest|round(2) }}</p>
+            <p><strong>Principal Amount:</strong> ₹{{ loan_amount|round(2) }}</p>
+        {% endif %}
+    </div>
+</body>
+</html>
